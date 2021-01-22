@@ -31,6 +31,10 @@ public class Blog {
 	public void setDate(LocalDate date) {
 		this.date = date;
 	}
-	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return blogTitle+date;
+	}
 	
 }

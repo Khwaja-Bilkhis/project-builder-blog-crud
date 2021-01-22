@@ -1,6 +1,9 @@
 package controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import businesslogic.ValidateUser;
 import model.User;
+import sun.util.resources.LocaleData;
 
 
 @WebServlet(urlPatterns= {"/login"})
@@ -40,6 +44,8 @@ public class LoginController extends HttpServlet {
 
 		ValidateUser validateUser = new ValidateUser();
 		if(validateUser.validate(email,password)) {
+			User user=new User(email, password, LocalDateTime.now());
+			request.setAttribute("currentUser",user);
 			RequestDispatcher rd=this.getServletContext().getRequestDispatcher("/WEB-INF/views/blogView.jsp");
 			rd.forward(request, response);
 		}else

@@ -24,7 +24,7 @@
     </nav>
     <div class="body-div1">
         <div>Your Blog Posts</div>
-        <button class="button" id="addBlog" ><i class="fas fa-plus-circle"></i>Add New Post</button>
+        <button class="button" id="addBlog" onclick="addB()"><i class="fas fa-plus-circle"></i>Add New Post</button>
     </div>
 <div id="popup">
 <!-- Popup Div Starts Here -->
@@ -33,6 +33,36 @@
 <img id="rect" src=./assets/rect.svg>
 <h2>Your Post</h2>
 <!-- Contact Us Form -->
+<script type="text/javascript">
+
+function addB(){
+	document.getElementById('popup').style.display = "block";
+}
+/*
+function editB(){
+	document.getElementById('popup').style.display = "block";
+}
+*/
+
+//Function to Hide Popup
+function div_hide(){
+	document.getElementById('popup').style.display = "none";
+}
+
+//When submit button is clicked store the text field value to a hidden value and post the form data to server
+function postB(){
+	var ans=[];
+	//let title=document.getElementById("blog-title").value;
+	
+	//let message=document.getElementById("blog-description").value;
+	
+	//document.getElementsByName("selectedAnswers").value=title+","+message;
+	
+	//console.log(document.getElementsByName("selectedAnswers"));
+
+	document.getElementById("form").submit();
+}
+</script>
 <form action="${pageContext.request.contextPath}/blog" id="form" method="post" name="form"> <%--${pageContext.request.contextPath}/blog  --%>
 
 <input id="title" name="title-text" placeholder="Title" type="text">
@@ -43,7 +73,7 @@
 <input id="java" type="radio" name="subject"/>
 <input id="js" type="radio" name="subject"/> -->
 <input type="hidden" name="selectedAnswers" id="answers"/>
-<button id="post" type="submit" >POST</button>
+<button id="post" type="submit" onsubmit="postB()" >POST</button>
 </form>
 </div>
 </div>
@@ -58,7 +88,7 @@
                 <p>Posted on <b><c:out value="${blog.getDate()}" /></b> </p>
             </div>
             <div class="card-buttons">
-                <button type="button" id="edit" value="edit">EDIT</button> <span>|</span><button id="delete" value="delete">DELETE</button>
+                <button type="button" id="edit" onclick="editB()" value="edit">EDIT</button> <span>|</span><button id="delete" value="delete">DELETE</button>
             </div>
         </div>
         </c:forEach> 

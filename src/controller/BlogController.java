@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.Blog;
 import model.User;
 import service.CRUDOperations;
-import service.ExcelFileStorage;
+
 import utility.CheckBlogPost;
 
 
@@ -37,17 +37,17 @@ public class BlogController extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String blogDetails = request.getParameter("selectedAnswers");
-		System.out.println(blogDetails);
+		//String blogDetails = request.getParameter("selectedAnswers");
+		//System.out.println(blogDetails);
 		
-		String[] userBlog=blogDetails.split(",");
-		String title = userBlog[0];
-		String description = userBlog[1];
+		//String[] userBlog=blogDetails.split(",");
+		String title = request.getParameter("title-text");
+		String description = request.getParameter("message-text");
 		LocalDate postedOn = LocalDate.now();
 		System.out.println(title);
 		System.out.println(description);
 		
-		User user = null;
+		User user = (User)request.getAttribute("currentUser");
 		Blog blog=new Blog(title,description,postedOn);
 		System.out.println(title);
 		System.out.println(description);
@@ -59,10 +59,11 @@ public class BlogController extends HttpServlet {
 		CheckBlogPost checkBlog=new CheckBlogPost();
 		boolean check=checkBlog.checkBlog(blog);
 		
-		CRUDOperations crud=new CRUDOperations();
-		List<Blog> listblog = crud.createBlog(blog);
+		
 
 		if(check) {
+			CRUDOperations crud=new CRUDOperations();
+			List<Blog> listblog = crud.createBlog(blog);
 			request.setAttribute("listBlog", listblog);
 //			request.setAttribute("blog", blog);
 //			request.setAttribute("user",user);
